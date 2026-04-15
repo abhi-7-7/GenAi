@@ -1,0 +1,5 @@
+{
+  "python.defaultInterpreterPath": "/opt/anaconda3/envs/space/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "jupyter.jupyterServerType": "local"
+}

@@ -1,0 +1,15 @@
+name: space
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - scikit-learn
+  - jupyter
+  - matplotlib
+  - seaborn
+  - openpyxl
+  - streamlit
+  - xgboost
+  - ipykernel
