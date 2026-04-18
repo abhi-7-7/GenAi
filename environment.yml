@@ -13,3 +13,13 @@ dependencies:
   - streamlit
   - xgboost
   - ipykernel
+  - joblib
+  - pip
+  - pip:
+      - python-dotenv
+      - langchain
+      - langchain-community
+      - langchain-groq
+      - langgraph
+      - sentence-transformers
+      - faiss-cpu
