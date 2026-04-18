@@ -1,103 +1,3 @@
-# import os
-# import streamlit as st
-# import pandas as pd
-# from src.train import train_models
-# from src.utils import load_model
-
-# st.set_page_config(page_title="Customer Churn Prediction", layout="wide")
-
-# st.title("📊 Customer Churn Prediction System")
-# st.write("Enter the customer details below to get a prediction.")
-
-# @st.cache_resource
-# def load_churn_model():
-#     model_path = "models/best_model.pkl"
-#     if os.path.exists(model_path):
-#         return load_model(model_path)
-#     else:
-#         df = pd.read_csv("data/processed/clean_telco_churn.csv")
-#         results = train_models(df)
-#         return results["best_model"]
-
-# model = load_churn_model()
-
-# with st.form("prediction_form"):
-#     col1, col2, col3 = st.columns(3)
-
-#     with col1:
-#         gender = st.selectbox("Gender", ["Male", "Female"])
-#         senior_citizen = st.selectbox("Senior Citizen", ["No", "Yes"])
-#         partner = st.selectbox("Partner", ["No", "Yes"])
-#         dependents = st.selectbox("Dependents", ["No", "Yes"])
-#         tenure = st.number_input("Tenure Months", min_value=0, max_value=100, value=1)
-#         phone_service = st.selectbox("Phone Service", ["Yes", "No"])
-
-#     with col2:
-#         multiple_lines = st.selectbox("Multiple Lines", ["No", "Yes", "No phone service"])
-#         internet_service = st.selectbox("Internet Service", ["Fiber optic", "DSL", "No"])
-#         online_security = st.selectbox("Online Security", ["No", "Yes", "No internet service"])
-#         online_backup = st.selectbox("Online Backup", ["No", "Yes", "No internet service"])
-#         device_protection = st.selectbox("Device Protection", ["No", "Yes", "No internet service"])
-#         tech_support = st.selectbox("Tech Support", ["No", "Yes", "No internet service"])
-
-#     with col3:
-#         streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"])
-#         streaming_movies = st.selectbox("Streaming Movies", ["No", "Yes", "No internet service"])
-#         contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
-#         paperless_billing = st.selectbox("Paperless Billing", ["Yes", "No"])
-#         payment_method = st.selectbox("Payment Method", ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
-#         monthly_charges = st.number_input("Monthly Charges", min_value=0.0, value=50.0)
-#         total_charges = st.number_input("Total Charges", min_value=0.0, value=50.0)
-
-#     submitted = st.form_submit_button("Predict Churn")
-
-#     if submitted:
-#         input_data = pd.DataFrame({
-#             "Gender": [gender],
-#             "Senior Citizen": [senior_citizen],
-#             "Partner": [partner],
-#             "Dependents": [dependents],
-#             "Tenure Months": [int(tenure)],
-#             "Phone Service": [phone_service],
-#             "Multiple Lines": [multiple_lines],
-#             "Internet Service": [internet_service],
-#             "Online Security": [online_security],
-#             "Online Backup": [online_backup],
-#             "Device Protection": [device_protection],
-#             "Tech Support": [tech_support],
-#             "Streaming TV": [streaming_tv],
-#             "Streaming Movies": [streaming_movies],
-#             "Contract": [contract],
-#             "Paperless Billing": [paperless_billing],
-#             "Payment Method": [payment_method],
-#             "Monthly Charges": [float(monthly_charges)],
-#             "Total Charges": [str(total_charges)]
-#         })
-
-#         # Get expected columns from the training set, minus target and leakage
-#         df_cols = pd.read_csv("data/processed/clean_telco_churn.csv", nrows=0)
-#         expected_cols = [c for c in df_cols.columns if c not in ["Churn Label", "Churn Value"]]
-        
-#         input_data = input_data[expected_cols]
-
-#         prob = model.predict_proba(input_data)[0][1]
-#         pred = model.predict(input_data)[0]
-
-#         st.markdown("---")
-#         if pred == 1:
-#             st.error(f"⚠️ **High Risk of Churn!** (Probability: {round(prob * 100, 2)}%)")
-#         else:
-#             st.success(f"✅ **Low Risk of Churn.** (Probability: {round(prob * 100, 2)}%)")
-
-
-
-
-
-
-
-
-
-
 import os
 import streamlit as st
 import pandas as pd
@@ -128,195 +28,156 @@ st.markdown("""
 
 /* Header */
 .app-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 2rem; padding-bottom: 1.5rem;
     border-bottom: 1px solid #e5e7eb;
 }
 .app-logo {
-    width: 40px; height: 40px;
-    background: #4f46e5;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
+    width: 40px; height: 40px; background: #4f46e5;
+    border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; font-size: 1.2rem;
 }
-.app-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #111827;
-}
-.app-tag {
-    font-size: 0.75rem;
-    color: #6b7280;
-    margin-top: 1px;
-}
+.app-name { font-size: 1.2rem; font-weight: 700; color: #111827; }
+.app-tag { font-size: 0.75rem; color: #6b7280; margin-top: 1px; }
 
 /* Section labels */
 .section-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #9ca3af;
-    margin: 1.5rem 0 0.75rem 0;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #9ca3af; margin: 1.5rem 0 0.75rem 0;
 }
 
 /* Cards */
 .info-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 20px;
+    background: #ffffff; border: 1px solid #e5e7eb;
+    border-radius: 12px; padding: 20px;
 }
 .info-card-title {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #9ca3af;
-    margin-bottom: 12px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #9ca3af; margin-bottom: 12px;
 }
 
 /* Verdict */
 .verdict-high {
-    background: #fef2f2;
-    border: 1.5px solid #fca5a5;
-    border-radius: 12px;
-    padding: 16px 20px;
+    background: #fef2f2; border: 1.5px solid #fca5a5;
+    border-radius: 12px; padding: 16px 20px;
 }
 .verdict-low {
-    background: #f0fdf4;
-    border: 1.5px solid #86efac;
-    border-radius: 12px;
-    padding: 16px 20px;
+    background: #f0fdf4; border: 1.5px solid #86efac;
+    border-radius: 12px; padding: 16px 20px;
 }
 .verdict-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px;
 }
 .verdict-label-high { color: #ef4444; }
 .verdict-label-low { color: #22c55e; }
-.verdict-value {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #111827;
-}
+.verdict-value { font-size: 1.3rem; font-weight: 700; color: #111827; }
 .verdict-sub { font-size: 0.82rem; color: #6b7280; margin-top: 2px; }
 
-/* Metric card */
+/* Metrics */
 div[data-testid="stMetric"] {
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 12px !important;
-    padding: 16px 20px !important;
+    background: #ffffff !important; border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important; padding: 16px 20px !important;
 }
 div[data-testid="stMetricLabel"] p {
-    font-size: 0.72rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase !important;
+    font-size: 0.72rem !important; font-weight: 600 !important;
+    letter-spacing: 0.08em !important; text-transform: uppercase !important;
     color: #9ca3af !important;
 }
 div[data-testid="stMetricValue"] {
-    font-size: 1.5rem !important;
-    font-weight: 700 !important;
-    color: #111827 !important;
+    font-size: 1.5rem !important; font-weight: 700 !important; color: #111827 !important;
 }
 
 /* Tabs */
 .stTabs [data-baseweb="tab-list"] {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 4px;
-    gap: 2px;
+    background: #ffffff; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 4px; gap: 2px;
 }
 .stTabs [data-baseweb="tab"] {
-    border-radius: 7px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #6b7280;
-    padding: 6px 14px;
+    border-radius: 7px; font-size: 0.85rem;
+    font-weight: 500; color: #374151; padding: 6px 14px;
 }
 .stTabs [aria-selected="true"] {
-    background: #f0f0ff !important;
-    color: #4f46e5 !important;
-    font-weight: 600 !important;
+    background: #eef2ff !important; color: #4f46e5 !important; font-weight: 600 !important;
 }
+.stTabs [data-baseweb="tab-panel"] { color: #111827; }
 
-/* Analyse button */
+/* Button */
 div[data-testid="stButton"] > button {
-    background: #4f46e5 !important;
-    color: #ffffff !important;
-    border: none !important;
-    border-radius: 10px !important;
-    padding: 0.65rem 2rem !important;
-    font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    letter-spacing: 0.01em !important;
-    transition: background 0.15s !important;
+    background: #4f46e5 !important; color: #ffffff !important;
+    border: none !important; border-radius: 10px !important;
+    padding: 0.65rem 2rem !important; font-weight: 600 !important;
+    font-size: 0.95rem !important; transition: background 0.15s !important;
 }
-div[data-testid="stButton"] > button:hover {
-    background: #4338ca !important;
-}
+div[data-testid="stButton"] > button:hover { background: #4338ca !important; }
 
-/* Pill tags */
+/* Pills */
 .pill {
-    display: inline-block;
-    background: #eef2ff;
-    color: #4338ca;
-    border-radius: 20px;
-    padding: 3px 10px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin: 2px;
+    display: inline-block; background: #eef2ff; color: #4338ca;
+    border-radius: 20px; padding: 3px 10px; font-size: 0.75rem;
+    font-weight: 500; margin: 2px;
 }
 
-/* Pipeline step */
+/* Pipeline steps */
 .pipe-step {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 7px 0;
-    border-bottom: 1px solid #f3f4f6;
-    font-size: 0.85rem;
-    color: #374151;
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 0; border-bottom: 1px solid #f3f4f6;
+    font-size: 0.85rem; color: #374151;
 }
 .pipe-step:last-child { border-bottom: none; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: #6366f1; flex-shrink: 0; }
 .dot-green { background: #10b981; }
 
-/* Form inputs */
+/* ALL form inputs - force visible text */
 div[data-baseweb="select"] > div {
-    border-radius: 8px !important;
-    border-color: #e5e7eb !important;
-    background: #ffffff !important;
-    font-size: 0.88rem !important;
+    border-radius: 8px !important; border-color: #e5e7eb !important;
+    background-color: #ffffff !important; color: #111827 !important;
 }
-div[data-testid="stNumberInput"] input,
-div[data-testid="stTextInput"] input {
-    border-radius: 8px !important;
-    border-color: #e5e7eb !important;
-    font-size: 0.88rem !important;
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] div,
+div[data-baseweb="select"] p {
+    color: #111827 !important;
 }
-div[data-testid="stSlider"] { padding: 0; }
+div[data-baseweb="select"] svg { fill: #6b7280 !important; }
+[data-baseweb="popover"] li,
+[data-baseweb="popover"] div,
+[data-baseweb="popover"] span {
+    color: #111827 !important; background-color: #ffffff !important;
+}
+[data-baseweb="menu"] { background-color: #ffffff !important; }
+[data-baseweb="menu"] li:hover { background-color: #f3f4f6 !important; }
 
+input[type="number"], input[type="text"] {
+    color: #111827 !important; background-color: #ffffff !important;
+    border-color: #e5e7eb !important; border-radius: 8px !important;
+}
+
+/* Slider value visible */
+div[data-testid="stSlider"] p { color: #111827 !important; }
+div[data-testid="stSlider"] span { color: #111827 !important; }
+
+/* Widget labels */
 label[data-testid="stWidgetLabel"] p {
-    font-size: 0.82rem !important;
-    font-weight: 500 !important;
-    color: #374151 !important;
+    font-size: 0.82rem !important; font-weight: 500 !important; color: #374151 !important;
 }
 
-.stInfo > div, .stSuccess > div {
-    border-radius: 10px !important;
-    font-size: 0.88rem !important;
-    line-height: 1.6 !important;
+/* Info / success boxes */
+div[data-testid="stAlert"] {
+    border-radius: 10px !important; color: #111827 !important;
 }
+div[data-testid="stAlert"] p,
+div[data-testid="stAlert"] div {
+    color: #111827 !important; font-size: 0.88rem !important; line-height: 1.7 !important;
+}
+
+/* Expander */
+details summary p { color: #111827 !important; font-weight: 500 !important; }
+details { background: #ffffff !important; border: 1px solid #e5e7eb !important; border-radius: 10px !important; }
+details div { color: #111827 !important; font-size: 0.88rem !important; line-height: 1.7 !important; }
+
+/* Markdown text always dark */
+.stMarkdown p, .stMarkdown li, .stMarkdown h4 { color: #111827 !important; }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -471,14 +332,14 @@ else:
         col_v, col_p, col_t, col_c = st.columns([1.4, 1, 1, 1])
         with col_v:
             if result["prediction"] == 1:
-                st.markdown(f"""
+                st.markdown("""
                 <div class="verdict-high">
                     <div class="verdict-label verdict-label-high">Churn Risk</div>
                     <div class="verdict-value">⚠️ High Risk</div>
                     <div class="verdict-sub">Customer likely to leave</div>
                 </div>""", unsafe_allow_html=True)
             else:
-                st.markdown(f"""
+                st.markdown("""
                 <div class="verdict-low">
                     <div class="verdict-label verdict-label-low">Churn Risk</div>
                     <div class="verdict-value">✅ Low Risk</div>
@@ -520,10 +381,15 @@ else:
         with tab3:
             st.markdown("#### Top 3 Similar Churned Customers (FAISS Retrieval)")
             if result["similar_cases"]:
-                for i, case in enumerate(result["similar_cases"].split("\n\n"), 1):
+                cases = result["similar_cases"].split("\n\n")
+                for i, case in enumerate(cases, 1):
                     if case.strip():
-                        with st.expander(f"Similar Case {i}"):
-                            st.write(case.strip())
+                        with st.expander(f"📁 Similar Case {i}", expanded=False):
+                            # Parse and display as clean key-value
+                            lines = case.replace("Similar Case " + str(i) + ": ", "").split(". ")
+                            for line in lines:
+                                if line.strip():
+                                    st.markdown(f"- {line.strip()}.")
             else:
                 st.info("No similar cases — customer predicted as low risk.")
 
