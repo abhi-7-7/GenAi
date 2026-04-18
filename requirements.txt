@@ -1,6 +1,16 @@
 streamlit
 pandas
+numpy
 matplotlib
 seaborn
 scikit-learn
 openpyxl
+joblib
+xgboost
+python-dotenv
+langchain
+langchain-community
+langchain-groq
+langgraph
+sentence-transformers
+faiss-cpu
